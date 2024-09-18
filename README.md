@@ -1,6 +1,12 @@
-# Android Sunflower with Compose
+# Android Sunflower with Compose [Refactored]
 
-Warning: The Sunflower repository is no longer under maintenance, We are prioritizing https://github.com/android/compose-samples as the up-to-date source of truth for Compose best practises. Please use that repository and sample set to continue learning about Jetpack Compose. If you'd like to continue using Sunflower, we encourage you to maintain your own fork of the sample. 
+This repository was originally created by Google to showcase best practices with Jetpack Compose and other Android libraries.
+
+I have modularized the app to make it more flexible, as previously most of the business logic was located in the app module. By separating the app into more distinct layers, I aimed to achieve better cohesion and maintainability.
+
+Additionally, I replaced Hilt/Dagger with Koin, as I have more experience with Koin for dependency injection.
+
+Note: This work in no way diminishes the excellent work done by the original team. On the contrary, the project is superbly written, and I have only made a few enhancements based on my experience as an Android developer.
 
 A gardening app illustrating Android development best practices with migrating a View-based app to
 Jetpack Compose. To learn about how Sunflower was migrated to Compose, see the 
