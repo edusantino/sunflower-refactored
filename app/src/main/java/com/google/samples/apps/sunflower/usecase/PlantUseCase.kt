@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.utilities
+package com.google.samples.apps.sunflower.usecase
 
-/**
- * Constants used throughout the app.
- */
-const val PLANT_DATA_FILENAME = "plants.json"
+import com.google.samples.apps.sunflower.data.Plant
+import kotlinx.coroutines.flow.Flow
+
+interface PlantUseCase {
+    fun getPlants(): Flow<List<Plant>>
+    fun getPlant(plantId: String): Flow<Plant>
+    fun getPlantsWithGrowZoneNumber(growZoneNumber: Int): Flow<List<Plant>>
+}

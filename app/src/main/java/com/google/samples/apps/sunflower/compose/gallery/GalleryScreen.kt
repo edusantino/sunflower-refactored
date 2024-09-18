@@ -30,7 +30,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+//import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -50,8 +50,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.compose.plantlist.PhotoListItem
-import com.google.samples.apps.sunflower.data.UnsplashPhoto
-import com.google.samples.apps.sunflower.data.UnsplashPhotoUrls
+import com.google.samples.apps.sunflower.api.UnsplashPhoto
+import com.google.samples.apps.sunflower.api.UnsplashPhotoUrls
 import com.google.samples.apps.sunflower.data.UnsplashUser
 import com.google.samples.apps.sunflower.viewmodels.GalleryViewModel
 import kotlinx.coroutines.flow.Flow
@@ -86,7 +86,7 @@ private fun GalleryScreen(
 
         val pullToRefreshState = rememberPullToRefreshState()
 
-        if (pullToRefreshState.isRefreshing) {
+        if (pullToRefreshState.isAnimating) {
             onPullToRefresh()
         }
 
@@ -97,7 +97,7 @@ private fun GalleryScreen(
             when (pagingItems.loadState.refresh) {
                 is  LoadState.Loading -> Unit
                 is LoadState.Error,is LoadState.NotLoading -> {
-                    pullToRefreshState.endRefresh()
+                    //pullToRefreshState.endRefresh()
                 }
             }
         }
@@ -105,7 +105,7 @@ private fun GalleryScreen(
         Box(
             modifier = Modifier
                 .padding(padding)
-                .nestedScroll(pullToRefreshState.nestedScrollConnection)
+                //.nestedScroll(pullToRefreshState.nestedScrollConnection)
         ) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -122,10 +122,10 @@ private fun GalleryScreen(
                 }
             }
 
-            PullToRefreshContainer(
+            /*PullToRefreshContainer(
                 modifier = Modifier.align(Alignment.TopCenter),
                 state = pullToRefreshState
-            )
+            )*/
         }
     }
 }

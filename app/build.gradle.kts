@@ -18,7 +18,6 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.ksp)
-  alias(libs.plugins.hilt)
   alias(libs.plugins.compose.compiler)
 }
 
@@ -36,11 +35,6 @@ android {
 
     // Consult the README on instructions for setting up Unsplash API key
     buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + getUnsplashAccess() + "\"")
-    javaCompileOptions {
-      annotationProcessorOptions {
-        arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
-      }
-    }
   }
   buildTypes {
     release {
@@ -105,8 +99,8 @@ androidComponents {
 }
 
 dependencies {
+  implementation(project(":data-source:local:db"))
   ksp(libs.androidx.room.compiler)
-  ksp(libs.hilt.android.compiler)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.livedata.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -121,8 +115,6 @@ dependencies {
   implementation(libs.retrofit2)
   implementation(libs.kotlinx.coroutines.android)
   implementation(libs.kotlinx.coroutines.core)
-  implementation(libs.hilt.android)
-  implementation(libs.hilt.navigation.compose)
   implementation(libs.androidx.profileinstaller)
 
   // Compose
@@ -141,11 +133,15 @@ dependencies {
   implementation(libs.androidx.lifecycle.runtime.compose)
   implementation(libs.glide)
   implementation(libs.accompanist.systemuicontroller)
+  implementation(libs.accompanist.swiperefresh)
   debugImplementation(libs.androidx.compose.ui.tooling)
+
+  // Koin
+  implementation(libs.insert.koin.android.v320)
+  implementation(libs.koin.android.v320)
 
   // Testing dependencies
   debugImplementation(libs.androidx.monitor)
-  kspAndroidTest(libs.hilt.android.compiler)
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.arch.core.testing)
   androidTestImplementation(libs.androidx.espresso.contrib)
@@ -156,7 +152,6 @@ dependencies {
   androidTestImplementation(libs.androidx.work.testing)
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   androidTestImplementation(libs.guava)
-  androidTestImplementation(libs.hilt.android.testing)
   androidTestImplementation(libs.accessibility.test.framework)
   androidTestImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.junit)

@@ -21,12 +21,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.samples.apps.sunflower.MainCoroutineRule
-import com.google.samples.apps.sunflower.data.AppDatabase
-import com.google.samples.apps.sunflower.data.GardenPlantingRepository
-import com.google.samples.apps.sunflower.data.PlantRepository
+import com.santino.db.repository.GardenPlantingRepositoryImpl
+import com.santino.db.repository.PlantRepositoryImpl
 import com.google.samples.apps.sunflower.runBlockingTest
-import com.google.samples.apps.sunflower.utilities.getValue
 import com.google.samples.apps.sunflower.utilities.testPlant
+import com.santino.db.AppDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
@@ -37,13 +36,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
 import javax.inject.Inject
-import kotlin.jvm.Throws
 
 @HiltAndroidTest
-class PlantDetailViewModelTest {
+class PlantDetailViewModelImplTest {
 
     private lateinit var appDatabase: AppDatabase
-    private lateinit var viewModel: PlantDetailViewModel
+    private lateinit var viewModel: PlantDetailViewModelImpl
     private val hiltRule = HiltAndroidRule(this)
     private val instantTaskExecutorRule = InstantTaskExecutorRule()
     private val coroutineRule = MainCoroutineRule()
@@ -55,10 +53,10 @@ class PlantDetailViewModelTest {
             .around(coroutineRule)
 
     @Inject
-    lateinit var plantRepository: PlantRepository
+    lateinit var plantRepositoryImpl: PlantRepositoryImpl
 
     @Inject
-    lateinit var gardenPlantingRepository: GardenPlantingRepository
+    lateinit var gardenPlantingRepositoryImpl: GardenPlantingRepositoryImpl
 
     @Before
     fun setUp() {
@@ -70,7 +68,7 @@ class PlantDetailViewModelTest {
         val savedStateHandle: SavedStateHandle = SavedStateHandle().apply {
             set("plantId", testPlant.plantId)
         }
-        viewModel = PlantDetailViewModel(savedStateHandle, plantRepository, gardenPlantingRepository)
+        //viewModel = PlantDetailViewModelImpl(savedStateHandle, plantRepositoryImpl, gardenPlantingRepositoryImpl)
     }
 
     @After

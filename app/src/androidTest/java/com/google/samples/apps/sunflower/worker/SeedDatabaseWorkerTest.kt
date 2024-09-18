@@ -27,7 +27,7 @@ import androidx.work.testing.TestListenableWorkerBuilder
 import androidx.work.testing.WorkManagerTestInitHelper
 import androidx.work.workDataOf
 import com.google.samples.apps.sunflower.utilities.PLANT_DATA_FILENAME
-import com.google.samples.apps.sunflower.workers.SeedDatabaseWorker
+import com.santino.db.workers.SeedDatabaseWorker
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -60,9 +60,9 @@ class RefreshMainDataWorkTest {
     @Test
     fun testRefreshMainDataWork() {
         // Get the ListenableWorker
-        val worker = TestListenableWorkerBuilder<SeedDatabaseWorker>(
+        val worker = TestListenableWorkerBuilder<com.santino.db.workers.SeedDatabaseWorker>(
             context = context,
-            inputData = workDataOf(SeedDatabaseWorker.KEY_FILENAME to PLANT_DATA_FILENAME)
+            inputData = workDataOf(com.santino.db.workers.SeedDatabaseWorker.KEY_FILENAME to PLANT_DATA_FILENAME)
         ).build()
 
         // Start the work synchronously

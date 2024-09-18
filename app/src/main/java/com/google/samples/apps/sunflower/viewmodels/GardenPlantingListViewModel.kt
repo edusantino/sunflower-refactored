@@ -18,7 +18,7 @@ package com.google.samples.apps.sunflower.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.samples.apps.sunflower.data.GardenPlantingRepository
+import com.santino.db.repository.GardenPlantingRepositoryImpl
 import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,10 +28,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GardenPlantingListViewModel @Inject internal constructor(
-    gardenPlantingRepository: GardenPlantingRepository
+    gardenPlantingRepositoryImpl: GardenPlantingRepositoryImpl
 ) : ViewModel() {
     val plantAndGardenPlantings: StateFlow<List<PlantAndGardenPlantings>> =
-        gardenPlantingRepository
+        gardenPlantingRepositoryImpl
             .getPlantedGardens()
             .stateIn(
                 viewModelScope,

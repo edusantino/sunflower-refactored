@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.samples.apps.sunflower.data.Plant
-import com.google.samples.apps.sunflower.data.PlantRepository
+import com.santino.db.repository.PlantRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -34,7 +34,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class PlantListViewModel @Inject internal constructor(
-    plantRepository: PlantRepository,
+    plantRepositoryImpl: PlantRepositoryImpl,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -44,9 +44,9 @@ class PlantListViewModel @Inject internal constructor(
 
     val plants: LiveData<List<Plant>> = growZone.flatMapLatest { zone ->
         if (zone == NO_GROW_ZONE) {
-            plantRepository.getPlants()
+            plantRepositoryImpl.getPlants()
         } else {
-            plantRepository.getPlantsWithGrowZoneNumber(zone)
+            plantRepositoryImpl.getPlantsWithGrowZoneNumber(zone)
         }
     }.asLiveData()
 

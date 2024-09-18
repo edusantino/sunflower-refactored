@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.data
+package com.santino.db.repository
 
-import javax.inject.Inject
-import javax.inject.Singleton
+import com.google.samples.apps.sunflower.data.PlantDao
 
 /**
  * Repository module for handling data operations.
@@ -25,24 +24,10 @@ import javax.inject.Singleton
  * Collecting from the Flows in [PlantDao] is main-safe.  Room supports Coroutines and moves the
  * query execution off of the main thread.
  */
-@Singleton
-class PlantRepository @Inject constructor(private val plantDao: PlantDao) {
+class PlantRepositoryImpl(private val plantDao: PlantDao) : PlantRepository {
+    override fun getPlants() = plantDao.getPlants()
+    override fun getPlant(plantId: String) = plantDao.getPlant(plantId)
 
-    fun getPlants() = plantDao.getPlants()
-
-    fun getPlant(plantId: String) = plantDao.getPlant(plantId)
-
-    fun getPlantsWithGrowZoneNumber(growZoneNumber: Int) =
+    override fun getPlantsWithGrowZoneNumber(growZoneNumber: Int) =
         plantDao.getPlantsWithGrowZoneNumber(growZoneNumber)
-
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile private var instance: PlantRepository? = null
-
-        fun getInstance(plantDao: PlantDao) =
-            instance ?: synchronized(this) {
-                instance ?: PlantRepository(plantDao).also { instance = it }
-            }
-    }
 }

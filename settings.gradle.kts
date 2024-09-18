@@ -31,4 +31,7 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+include("data-source:local")
+include("data-source:remote")
 include(":macrobenchmark")
+include(":data-source:local:db")

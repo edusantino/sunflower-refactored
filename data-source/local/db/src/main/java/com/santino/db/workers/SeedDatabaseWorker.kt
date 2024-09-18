@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.workers
+package com.santino.db.workers
 
 import android.content.Context
 import android.util.Log
@@ -23,15 +23,17 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
-import com.google.samples.apps.sunflower.data.AppDatabase
 import com.google.samples.apps.sunflower.data.Plant
+import com.santino.db.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 
 class SeedDatabaseWorker(
         context: Context,
         workerParams: WorkerParameters
-) : CoroutineWorker(context, workerParams) {
+) : CoroutineWorker(context, workerParams), KoinComponent {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val filename = inputData.getString(KEY_FILENAME)
@@ -41,7 +43,7 @@ class SeedDatabaseWorker(
                         val plantType = object : TypeToken<List<Plant>>() {}.type
                         val plantList: List<Plant> = Gson().fromJson(jsonReader, plantType)
 
-                        val database = AppDatabase.getInstance(applicationContext)
+                        val database: AppDatabase = get()
                         database.plantDao().upsertAll(plantList)
 
                         Result.success()

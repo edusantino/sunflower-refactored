@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.viewmodels
+package com.google.samples.apps.sunflower.usecase
 
-import androidx.lifecycle.ViewModel
+import com.google.samples.apps.sunflower.data.Plant
+import com.santino.db.repository.PlantRepository
+import kotlinx.coroutines.flow.Flow
 
-abstract class PlantDetailViewModel : ViewModel() {
+class PlantUseCaseImpl(private val plantRepository: PlantRepository) : PlantUseCase {
+    override fun getPlants(): Flow<List<Plant>> = plantRepository.getPlants()
 
+    override fun getPlant(plantId: String) = plantRepository.getPlant(plantId)
+
+    override fun getPlantsWithGrowZoneNumber(growZoneNumber: Int) =
+        plantRepository.getPlantsWithGrowZoneNumber(growZoneNumber)
 }

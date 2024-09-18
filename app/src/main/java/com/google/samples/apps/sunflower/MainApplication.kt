@@ -18,12 +18,26 @@ package com.google.samples.apps.sunflower
 
 import android.app.Application
 import androidx.work.Configuration
-import dagger.hilt.android.HiltAndroidApp
+import com.google.samples.apps.sunflower.di.ModuleApp
+import com.santino.db.ModuleDB
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
 
-@HiltAndroidApp
 class MainApplication : Application(), Configuration.Provider {
+
   override val workManagerConfiguration: Configuration
     get() = Configuration.Builder()
       .setMinimumLoggingLevel(if (BuildConfig.DEBUG) android.util.Log.DEBUG else android.util.Log.ERROR)
       .build()
+
+  override fun onCreate() {
+    super.onCreate()
+
+    startKoin {
+      androidLogger()
+      androidContext(this@MainApplication)
+      modules(listOf(ModuleApp.koinModule, ModuleDB.koinModule))
+    }
+  }
 }
