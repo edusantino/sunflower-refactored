@@ -8,6 +8,8 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.santino.db.repository.GardenPlantingRepository
 import com.santino.db.repository.GardenPlantingRepositoryImpl
+import com.santino.db.repository.PlantRepository
+import com.santino.db.repository.PlantRepositoryImpl
 import com.santino.db.workers.SeedDatabaseWorker
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
@@ -36,10 +38,12 @@ object ModuleDB : KoinComponent {
         }
         single { get<AppDatabase>().gardenPlantingDao() }
         single { get<AppDatabase>().plantDao() }
+
         factory<GardenPlantingRepository> { GardenPlantingRepositoryImpl(gardenPlantingDao = get()) }
+        factory<PlantRepository> { PlantRepositoryImpl(plantDao = get()) }
     }
 
-    const val DATABASE_NAME = "sunflower-db"
+    private const val DATABASE_NAME = "sunflower-db"
     const val PLANT_DATA_FILENAME = "plants.json"
     const val KEY_FILENAME = "PLANT_DATA_FILENAME"
 }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    id("kotlin-kapt")
 }
 
 android {
@@ -36,7 +37,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.paging.compose)
-    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.material)
     implementation(libs.gson)
@@ -68,6 +68,10 @@ dependencies {
     // Koin
     implementation(libs.insert.koin.android.v320)
     implementation(libs.koin.android.v320)
+
+    // Room
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
     // Testing dependencies
     debugImplementation(libs.androidx.monitor)

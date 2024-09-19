@@ -20,11 +20,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -48,7 +45,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.compose.garden.GardenScreen
 import com.google.samples.apps.sunflower.compose.plantlist.PlantListScreen
@@ -56,6 +52,7 @@ import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.ui.SunflowerTheme
 import com.google.samples.apps.sunflower.viewmodels.PlantListViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 enum class SunflowerPage(
     @StringRes val titleResId: Int,
@@ -65,12 +62,12 @@ enum class SunflowerPage(
     PLANT_LIST(R.string.plant_list_title, R.drawable.ic_plant_list_active)
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     onPlantClick: (Plant) -> Unit = {},
-    viewModel: PlantListViewModel = hiltViewModel(),
+    viewModel: PlantListViewModel = koinViewModel(),
     pages: Array<SunflowerPage> = SunflowerPage.values()
 ) {
     val pagerState = rememberPagerState(pageCount = { pages.size })
@@ -190,12 +187,11 @@ private fun HomeTopAppBar(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 private fun HomeScreenPreview() {
     SunflowerTheme {
-        val pages = SunflowerPage.values()
+        val pages = SunflowerPage.entries.toTypedArray()
         HomePagerScreen(
             onPlantClick = {},
             pagerState = rememberPagerState(pageCount = { pages.size }),

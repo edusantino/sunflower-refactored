@@ -81,7 +81,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.text.HtmlCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -96,7 +95,8 @@ import com.google.samples.apps.sunflower.compose.visible
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.ItemPlantDescriptionBinding
 import com.google.samples.apps.sunflower.ui.SunflowerTheme
-import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModelImpl
+import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
+import org.koin.androidx.compose.koinViewModel
 
 /**
  * As these callbacks are passed in through multiple Composables, to avoid having to name
@@ -111,7 +111,7 @@ data class PlantDetailsCallbacks(
 
 @Composable
 fun PlantDetailsScreen(
-    plantDetailsViewModel: PlantDetailViewModelImpl = hiltViewModel(),
+    plantDetailsViewModel: PlantDetailViewModel = koinViewModel(),
     onBackClick: () -> Unit,
     onShareClick: (String) -> Unit,
     onGalleryClick: (Plant) -> Unit,

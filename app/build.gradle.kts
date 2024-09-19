@@ -139,6 +139,7 @@ dependencies {
   // Koin
   implementation(libs.insert.koin.android.v320)
   implementation(libs.koin.android.v320)
+  implementation(libs.androidx.compose.koin.viewmodel)
 
   // Testing dependencies
   debugImplementation(libs.androidx.monitor)

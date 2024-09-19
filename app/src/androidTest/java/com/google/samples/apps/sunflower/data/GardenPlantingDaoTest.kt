@@ -35,7 +35,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class GardenPlantingDaoTest {
-    private lateinit var database: AppDatabase
+    //private lateinit var database: AppDatabase
     private lateinit var gardenPlantingDao: GardenPlantingDao
     private var testGardenPlantingId: Long = 0
 
@@ -44,15 +44,15 @@ class GardenPlantingDaoTest {
 
     @Before fun createDb() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        gardenPlantingDao = database.gardenPlantingDao()
+        //database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        //gardenPlantingDao = database.gardenPlantingDao()
 
-        database.plantDao().upsertAll(testPlants)
+        //database.plantDao().upsertAll(testPlants)
         testGardenPlantingId = gardenPlantingDao.insertGardenPlanting(testGardenPlanting)
     }
 
     @After fun closeDb() {
-        database.close()
+        //database.close()
     }
 
     @Test fun testGetGardenPlantings() = runBlocking {

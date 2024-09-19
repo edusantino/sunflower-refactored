@@ -16,16 +16,32 @@
 
 package com.google.samples.apps.sunflower.di
 
+import com.google.samples.apps.sunflower.api.UnsplashService
 import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCase
 import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCaseImpl
 import com.google.samples.apps.sunflower.usecase.PlantUseCase
 import com.google.samples.apps.sunflower.usecase.PlantUseCaseImpl
+import com.google.samples.apps.sunflower.viewmodels.GardenPlantingListViewModel
+import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
+import com.google.samples.apps.sunflower.viewmodels.PlantListViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.dsl.module
+import org.koin.androidx.viewmodel.dsl.viewModel
 
 object ModuleApp : KoinComponent {
     val koinModule = module {
+        viewModel { GardenPlantingListViewModel(gardenPlantingRepository = get()) }
+        viewModel { PlantListViewModel(plantRepository = get(), savedStateHandle = get()) }
+        viewModel {
+            PlantDetailViewModel(
+                gardenPlantingUseCase = get(),
+                plantUseCase = get(),
+                savedStateHandle = get()
+            )
+        }
+
         factory<GardenPlantingUseCase> { GardenPlantingUseCaseImpl(plantingRepository = get()) }
         factory<PlantUseCase> { PlantUseCaseImpl(plantRepository = get()) }
+        single { UnsplashService.create() }
     }
 }
