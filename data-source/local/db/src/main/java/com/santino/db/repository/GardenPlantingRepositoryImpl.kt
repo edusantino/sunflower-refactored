@@ -17,7 +17,7 @@
 package com.santino.db.repository
 
 import com.google.samples.apps.sunflower.data.GardenPlanting
-import com.google.samples.apps.sunflower.data.GardenPlantingDao
+import com.santino.db.data.GardenPlantingDao
 
 class GardenPlantingRepositoryImpl(
     private val gardenPlantingDao: GardenPlantingDao
@@ -27,7 +27,8 @@ class GardenPlantingRepositoryImpl(
         gardenPlantingDao.insertGardenPlanting(gardenPlanting)
     }
 
-    override suspend fun removeGardenPlanting(gardenPlanting: GardenPlanting) {
+    override suspend fun removeGardenPlanting(plantId: String) {
+        val gardenPlanting = GardenPlanting(plantId)
         gardenPlantingDao.deleteGardenPlanting(gardenPlanting)
     }
 

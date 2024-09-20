@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.data
+package com.santino.db.data
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import com.google.samples.apps.sunflower.data.GardenPlanting
+import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -21,7 +21,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.google.samples.apps.sunflower.data.Converters
 import com.google.samples.apps.sunflower.data.GardenPlanting
-import com.google.samples.apps.sunflower.data.GardenPlantingDao
+import com.santino.db.data.GardenPlantingDao
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.data.PlantDao
 

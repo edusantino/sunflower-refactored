@@ -16,7 +16,6 @@
 
 package com.google.samples.apps.sunflower.usecase
 
-import com.google.samples.apps.sunflower.data.GardenPlanting
 import com.santino.db.repository.GardenPlantingRepository
 
 class GardenPlantingUseCaseImpl(
@@ -26,8 +25,8 @@ class GardenPlantingUseCaseImpl(
         plantingRepository.createGardenPlanting(plantId)
     }
 
-    override suspend fun removeGardenPlanting(gardenPlanting: GardenPlanting) {
-        plantingRepository.removeGardenPlanting(gardenPlanting)
+    override suspend fun removeGardenPlanting(plantId: String) {
+        plantingRepository.removeGardenPlanting(plantId)
     }
 
     override fun isPlanted(plantId: String) = plantingRepository.isPlanted(plantId)

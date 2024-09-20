@@ -34,6 +34,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.api.UnsplashPhoto
@@ -62,10 +67,16 @@ fun ImageListItem(name: String, imageUrl: String, onClick: () -> Unit) {
             GlideImage(
                 model = imageUrl,
                 contentDescription = stringResource(R.string.a11y_plant_item_image),
-                Modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .height(dimensionResource(id = R.dimen.plant_item_image_height)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                requestBuilderTransform = {
+                    it.apply(RequestOptions()
+                        .format(DecodeFormat.PREFER_RGB_565)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                        .encodeQuality(50)
+                }
             )
             Text(
                 text = name,

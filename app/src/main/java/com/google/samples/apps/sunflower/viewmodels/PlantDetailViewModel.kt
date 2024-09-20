@@ -59,6 +59,13 @@ class PlantDetailViewModel (
         }
     }
 
+    fun removePlantFromGarden() {
+        viewModelScope.launch {
+            gardenPlantingUseCase.removeGardenPlanting(plantId)
+            _showSnackbar
+        }
+    }
+
     fun dismissSnackbar() {
         _showSnackbar.value = false
     }

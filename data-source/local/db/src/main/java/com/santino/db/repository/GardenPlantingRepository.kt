@@ -16,13 +16,12 @@
 
 package com.santino.db.repository
 
-import com.google.samples.apps.sunflower.data.GardenPlanting
 import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
 import kotlinx.coroutines.flow.Flow
 
 interface GardenPlantingRepository {
     suspend fun createGardenPlanting(plantId: String)
-    suspend fun removeGardenPlanting(gardenPlanting: GardenPlanting)
+    suspend fun removeGardenPlanting(plantId: String)
     fun isPlanted(plantId: String): Flow<Boolean>
     fun getPlantedGardens(): Flow<List<PlantAndGardenPlantings>>
 }
