@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.api
+package com.google.samples.apps.sunflower.usecase
 
-import com.google.gson.annotations.SerializedName
+import androidx.paging.PagingData
+import com.santino.api.data.UnsplashPhoto
+import com.santino.api.UnsplashRepository
+import kotlinx.coroutines.flow.Flow
 
-/**
- * Data class that represents a photo search response from Unsplash.
- *
- * Not all of the fields returned from the API are represented here; only the ones used in this
- * project are listed below. For a full list of fields, consult the API documentation
- * [here](https://unsplash.com/documentation#search-photos).
- */
-data class UnsplashSearchResponse(
-    @field:SerializedName("results") val results: List<UnsplashPhoto>,
-    @field:SerializedName("total_pages") val totalPages: Int
-)
+class SearchResultUseCaseImpl(private val repository: UnsplashRepository) : SearchResultUseCase {
+    override fun execute(query: String): Flow<PagingData<UnsplashPhoto>> {
+        return repository.getSearchResultStream(query)
+    }
+}

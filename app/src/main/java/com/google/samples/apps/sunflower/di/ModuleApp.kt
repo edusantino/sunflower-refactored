@@ -16,11 +16,13 @@
 
 package com.google.samples.apps.sunflower.di
 
-import com.google.samples.apps.sunflower.api.UnsplashService
+import com.santino.api.UnsplashService
 import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCase
 import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCaseImpl
 import com.google.samples.apps.sunflower.usecase.PlantUseCase
 import com.google.samples.apps.sunflower.usecase.PlantUseCaseImpl
+import com.google.samples.apps.sunflower.usecase.SearchResultUseCase
+import com.google.samples.apps.sunflower.usecase.SearchResultUseCaseImpl
 import com.google.samples.apps.sunflower.viewmodels.GardenPlantingListViewModel
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 import com.google.samples.apps.sunflower.viewmodels.PlantListViewModel
@@ -42,6 +44,7 @@ object ModuleApp : KoinComponent {
 
         factory<GardenPlantingUseCase> { GardenPlantingUseCaseImpl(plantingRepository = get()) }
         factory<PlantUseCase> { PlantUseCaseImpl(plantRepository = get()) }
+        factory<SearchResultUseCase> { SearchResultUseCaseImpl(repository = get()) }
         single { UnsplashService.create() }
     }
 }

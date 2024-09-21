@@ -105,7 +105,6 @@ fun PlantDetailsScreen(
                 PlantDetails(
                     plant,
                     isPlanted,
-                    plantDetailsViewModel.hasValidUnsplashKey(),
                     PlantDetailsCallbacks(
                         onBackClick = onBackClick,
                         onAddFabClick = {
@@ -128,7 +127,6 @@ fun PlantDetailsScreen(
 fun PlantDetails(
     plant: Plant,
     isPlanted: Boolean,
-    hasValidUnsplashKey: Boolean,
     callbacks: PlantDetailsCallbacks,
     modifier: Modifier = Modifier
 ) {
@@ -168,7 +166,6 @@ fun PlantDetails(
             },
             plant = plant,
             isPlanted = isPlanted,
-            hasValidUnsplashKey = hasValidUnsplashKey,
             imageHeight = with(LocalDensity.current) {
                 val candidateHeight =
                     Dimens.PlantDetailAppBarHeight
@@ -195,7 +192,6 @@ private fun PlantDetailsContent(
     toolbarState: ToolbarState,
     plant: Plant,
     isPlanted: Boolean,
-    hasValidUnsplashKey: Boolean,
     imageHeight: Dp,
     onNamePosition: (Float) -> Unit,
     onAddFabClick: () -> Unit,
@@ -236,7 +232,6 @@ private fun PlantDetailsContent(
                 name = plant.name,
                 wateringInterval = plant.wateringInterval,
                 description = plant.description,
-                hasValidUnsplashKey = hasValidUnsplashKey,
                 onNamePosition = { onNamePosition(it) },
                 toolbarState = toolbarState,
                 onGalleryClick = onGalleryClick,
@@ -253,7 +248,6 @@ private fun PlantInformation(
     name: String,
     wateringInterval: Int,
     description: String,
-    hasValidUnsplashKey: Boolean,
     onNamePosition: (Float) -> Unit,
     toolbarState: ToolbarState,
     onGalleryClick: () -> Unit,
@@ -301,15 +295,13 @@ private fun PlantInformation(
                         .align(Alignment.CenterHorizontally)
                 )
             }
-            if (hasValidUnsplashKey) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_photo_library),
-                    contentDescription = "Gallery Icon",
-                    Modifier
-                        .clickable { onGalleryClick() }
-                        .align(Alignment.CenterEnd)
-                )
-            }
+            Image(
+                painter = painterResource(id = R.drawable.ic_photo_library),
+                contentDescription = "Gallery Icon",
+                Modifier
+                    .clickable { onGalleryClick() }
+                    .align(Alignment.CenterEnd)
+            )
         }
         PlantDescription(description)
     }
@@ -335,7 +327,6 @@ private fun PlantDetailContentPreview() {
         Surface {
             PlantDetails(
                 Plant("plantId", "Tomato", "HTML<br>description", 6),
-                true,
                 true,
                 PlantDetailsCallbacks({ }, { }, { }, { }, { })
             )

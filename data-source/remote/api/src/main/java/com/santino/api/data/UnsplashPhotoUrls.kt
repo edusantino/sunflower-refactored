@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-pluginManagement {
-  repositories {
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
-}
+package com.santino.api.data
 
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-  }
-}
+import com.google.gson.annotations.SerializedName
 
-include(":app")
-include("data-source:local")
-include("data-source:remote")
-include(":macrobenchmark")
-include(":data-source:local:db")
-include(":data-source:remote:api")
+/**
+ * Data class that represents URLs available for a Unsplash photo.
+ *
+ * Although several photo sizes are available, this project uses only uses the `small` sized photo.
+ * For more details, consult the API documentation
+ * [here](https://unsplash.com/documentation#example-image-use).
+ */
+data class UnsplashPhotoUrls(
+    @field:SerializedName("small") val small: String
+)

@@ -19,6 +19,7 @@ package com.google.samples.apps.sunflower
 import android.app.Application
 import androidx.work.Configuration
 import com.google.samples.apps.sunflower.di.ModuleApp
+import com.santino.api.di.ModuleAPI
 import com.santino.db.ModuleDB
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -37,7 +38,7 @@ class MainApplication : Application(), Configuration.Provider {
     startKoin {
       androidLogger()
       androidContext(this@MainApplication)
-      modules(listOf(ModuleApp.koinModule, ModuleDB.koinModule))
+      modules(listOf(ModuleApp.koinModule, ModuleDB.koinModule, ModuleAPI.koinModule))
     }
   }
 }

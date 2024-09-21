@@ -32,10 +32,8 @@ android {
     versionCode = 1
     versionName = "0.1.6"
     vectorDrawables.useSupportLibrary = true
-
-    // Consult the README on instructions for setting up Unsplash API key
-    buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + getUnsplashAccess() + "\"")
   }
+
   buildTypes {
     release {
       isMinifyEnabled = true
@@ -100,6 +98,7 @@ androidComponents {
 
 dependencies {
   implementation(project(":data-source:local:db"))
+  implementation(project(":data-source:remote:api"))
   ksp(libs.androidx.room.compiler)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -110,12 +109,6 @@ dependencies {
   implementation(libs.androidx.work.runtime.ktx)
   implementation(libs.material)
   implementation(libs.gson)
-  implementation(libs.okhttp3.logging.interceptor)
-  implementation(libs.retrofit2.converter.gson)
-  implementation(libs.retrofit2)
-  implementation(libs.kotlinx.coroutines.android)
-  implementation(libs.kotlinx.coroutines.core)
-  implementation(libs.androidx.profileinstaller)
 
   // Compose
   implementation(platform(libs.androidx.compose.bom))
@@ -156,8 +149,4 @@ dependencies {
   androidTestImplementation(libs.accessibility.test.framework)
   androidTestImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.junit)
-}
-
-fun getUnsplashAccess(): String? {
-  return project.findProperty("unsplash_access_key") as? String
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.api
+package com.santino.api.di
 
-import com.google.gson.annotations.SerializedName
+import com.santino.api.UnsplashRepository
+import com.santino.api.UnsplashService
+import org.koin.core.component.KoinComponent
+import org.koin.dsl.module
 
-/**
- * Data class that represents URLs available for a Unsplash photo.
- *
- * Although several photo sizes are available, this project uses only uses the `small` sized photo.
- * For more details, consult the API documentation
- * [here](https://unsplash.com/documentation#example-image-use).
- */
-data class UnsplashPhotoUrls(
-    @field:SerializedName("small") val small: String
-)
+object ModuleAPI : KoinComponent {
+    val koinModule = module {
+        single { UnsplashService.create() }
+        single { UnsplashRepository(service = get()) }
+
+    }
+}

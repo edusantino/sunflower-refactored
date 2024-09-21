@@ -36,12 +36,10 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.data.Plant
-import com.google.samples.apps.sunflower.api.UnsplashPhoto
+import com.santino.api.data.UnsplashPhoto
 
 @Composable
 fun PlantListItem(plant: Plant, onClick: () -> Unit) {

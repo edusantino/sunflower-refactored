@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.api
+package com.santino.api.data
 
 import com.google.gson.annotations.SerializedName
-import com.google.samples.apps.sunflower.data.UnsplashUser
 
 /**
  * Data class that represents a photo from Unsplash.
