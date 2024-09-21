@@ -28,8 +28,8 @@ class GardenPlantingRepositoryImpl(
     }
 
     override suspend fun removeGardenPlanting(plantId: String) {
-        val gardenPlanting = GardenPlanting(plantId)
-        gardenPlantingDao.deleteGardenPlanting(gardenPlanting)
+        // val gardenPlanting = GardenPlanting(plantId)
+        gardenPlantingDao.deleteByPlantId(plantId)
     }
 
     override fun isPlanted(plantId: String) =

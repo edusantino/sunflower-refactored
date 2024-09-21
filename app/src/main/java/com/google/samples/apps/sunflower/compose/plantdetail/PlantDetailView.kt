@@ -36,7 +36,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -61,8 +60,8 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.compose.Dimens
-import com.google.samples.apps.sunflower.compose.plantdetail.components.fab.PlantFab
 import com.google.samples.apps.sunflower.compose.plantdetail.components.PlantImage
+import com.google.samples.apps.sunflower.compose.plantdetail.components.fab.PlantFab
 import com.google.samples.apps.sunflower.compose.plantdetail.components.toolbar.PlantToolbar
 import com.google.samples.apps.sunflower.compose.utils.TextSnackbarContainer
 import com.google.samples.apps.sunflower.compose.visible

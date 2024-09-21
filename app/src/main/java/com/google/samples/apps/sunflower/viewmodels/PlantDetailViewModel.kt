@@ -62,7 +62,7 @@ class PlantDetailViewModel (
     fun removePlantFromGarden() {
         viewModelScope.launch {
             gardenPlantingUseCase.removeGardenPlanting(plantId)
-            _showSnackbar
+            _showSnackbar.value = true
         }
     }
 
