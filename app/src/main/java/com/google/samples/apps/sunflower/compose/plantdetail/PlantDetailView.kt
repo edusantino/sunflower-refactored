@@ -93,6 +93,7 @@ fun PlantDetailsScreen(
     val plant = plantDetailsViewModel.plant.observeAsState().value
     val isPlanted = plantDetailsViewModel.isPlanted.collectAsStateWithLifecycle().value
     val showSnackbar = plantDetailsViewModel.showSnackbar.observeAsState().value
+    val eventUI = plantDetailsViewModel.eventUI.observeAsState().value
 
     if (plant != null && showSnackbar != null) {
         Surface {

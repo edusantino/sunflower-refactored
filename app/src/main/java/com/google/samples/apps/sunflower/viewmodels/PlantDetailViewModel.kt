@@ -19,15 +19,14 @@ package com.google.samples.apps.sunflower.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.samples.apps.sunflower.BuildConfig
+import com.google.samples.apps.sunflower.BaseViewModel
+import com.google.samples.apps.sunflower.ui.ViewEvent
 import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCase
 import com.google.samples.apps.sunflower.usecase.PlantUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 /**
  * The ViewModel used in [PlantDetailsScreen].
@@ -36,7 +35,8 @@ class PlantDetailViewModel (
     private val gardenPlantingUseCase: GardenPlantingUseCase,
     savedStateHandle: SavedStateHandle,
     plantUseCase: PlantUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
+    override val eventUI = MutableLiveData<ViewEvent>()
 
     val plantId: String = savedStateHandle.get<String>(PLANT_ID_SAVED_STATE_KEY)!!
 
@@ -53,14 +53,20 @@ class PlantDetailViewModel (
         get() = _showSnackbar
 
     fun addPlantToGarden() {
-        viewModelScope.launch {
-            gardenPlantingUseCase.createGardenPlanting(plantId)
-            _showSnackbar.value = true
+        launchOnIO {
+            val result = gardenPlantingUseCase.createGardenPlanting(plantId)
+            result
+                .onSuccess {
+                    eventUI.postValue(ViewEvent.Success(Unit))
+                }
+                .onFailure {
+                    eventUI.postValue(ViewEvent.Error(it))
+                }
         }
     }
 
     fun removePlantFromGarden() {
-        viewModelScope.launch {
+        launchOnIO {
             gardenPlantingUseCase.removeGardenPlanting(plantId)
             _showSnackbar.value = true
         }

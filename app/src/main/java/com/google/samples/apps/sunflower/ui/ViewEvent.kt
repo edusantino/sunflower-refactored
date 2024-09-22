@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.usecase
+package com.google.samples.apps.sunflower.ui
 
-import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
-import kotlinx.coroutines.flow.Flow
-
-interface GardenPlantingUseCase {
-    suspend fun createGardenPlanting(plantId: String): Result<Unit>
-     suspend fun removeGardenPlanting(plantId: String): Result<Unit>
-     fun isPlanted(plantId: String): Flow<Boolean>
-     fun getPlantedGardens(): Flow<List<PlantAndGardenPlantings>>
+sealed class ViewEvent {
+    data object Loading : ViewEvent()
+    data class Success(val data: Any?) : ViewEvent()
+    data class Error(val exception: Throwable) : ViewEvent()
 }

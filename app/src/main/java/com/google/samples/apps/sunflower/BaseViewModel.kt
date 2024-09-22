@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.sunflower.usecase
+package com.google.samples.apps.sunflower
 
-import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.samples.apps.sunflower.ui.ViewEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-interface GardenPlantingUseCase {
-    suspend fun createGardenPlanting(plantId: String): Result<Unit>
-     suspend fun removeGardenPlanting(plantId: String): Result<Unit>
-     fun isPlanted(plantId: String): Flow<Boolean>
-     fun getPlantedGardens(): Flow<List<PlantAndGardenPlantings>>
+abstract class BaseViewModel : ViewModel() {
+    abstract val eventUI: LiveData<ViewEvent>
+    fun launchOnIO(block: suspend CoroutineScope.() -> Unit) {
+        viewModelScope.launch(Dispatchers.IO, block = block)
+    }
 }
