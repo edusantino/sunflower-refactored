@@ -51,5 +51,7 @@
     <string name="a11y_back" translatable="false">Navigate up</string>
     <string name="gallery_content_description" translation_description="Content description for the clickable image to navigate to the gallery screen">Navigate to gallery screen</string>
     <string name="plant_detail_image_content_description" translation_description="Content description for the header / hero image that is show at the top of the plant detail screen.">Image of plant</string>
+    <string name="failed_to_add_plant">Failed to add</string>
+    <string name="removed_plant_from_garden">Removed plant!</string>
 
 </resources>

@@ -22,15 +22,12 @@ import com.santino.db.data.GardenPlantingDao
 class GardenPlantingRepositoryImpl(
     private val gardenPlantingDao: GardenPlantingDao
 ) : GardenPlantingRepository {
-    override suspend fun createGardenPlanting(plantId: String) {
-        val gardenPlanting = GardenPlanting(plantId)
-        gardenPlantingDao.insertGardenPlanting(gardenPlanting)
-    }
 
-    override suspend fun removeGardenPlanting(plantId: String) {
-        // val gardenPlanting = GardenPlanting(plantId)
+    override suspend fun createGardenPlanting(plantId: String) =
+        gardenPlantingDao.insertGardenPlanting(GardenPlanting(plantId))
+
+    override suspend fun removeGardenPlanting(plantId: String) =
         gardenPlantingDao.deleteByPlantId(plantId)
-    }
 
     override fun isPlanted(plantId: String) =
         gardenPlantingDao.isPlanted(plantId)

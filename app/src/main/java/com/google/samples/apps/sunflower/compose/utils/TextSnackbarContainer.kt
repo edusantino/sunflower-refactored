@@ -17,6 +17,7 @@
 package com.google.samples.apps.sunflower.compose.utils
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
@@ -44,11 +45,11 @@ fun TextSnackbarContainer(
     onDismissSnackbar: () -> Unit,
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-    content: @Composable () -> Unit
 ) {
-    Box(modifier) {
-        content()
-
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
         val onDismissState by rememberUpdatedState(onDismissSnackbar)
         LaunchedEffect(showSnackbar, snackbarText) {
             if (showSnackbar) {
@@ -67,7 +68,7 @@ fun TextSnackbarContainer(
         MaterialTheme(shapes = Shapes()) {
             SnackbarHost(
                 hostState = snackbarHostState,
-                modifier = modifier
+                modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .systemBarsPadding()
                     .padding(all = 8.dp),

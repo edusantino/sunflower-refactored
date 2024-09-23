@@ -16,6 +16,7 @@
 
 package com.google.samples.apps.sunflower.usecase
 
+import com.google.samples.apps.sunflower.data.GardenPlanting
 import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
 import kotlinx.coroutines.flow.Flow
 

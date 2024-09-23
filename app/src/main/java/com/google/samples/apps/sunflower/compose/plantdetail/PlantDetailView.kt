@@ -35,6 +35,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -44,6 +45,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
@@ -65,10 +67,14 @@ import com.google.samples.apps.sunflower.compose.plantdetail.components.fab.Plan
 import com.google.samples.apps.sunflower.compose.plantdetail.components.toolbar.PlantToolbar
 import com.google.samples.apps.sunflower.compose.utils.TextSnackbarContainer
 import com.google.samples.apps.sunflower.compose.visible
+import com.google.samples.apps.sunflower.data.GardenPlanting
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.ItemPlantDescriptionBinding
 import com.google.samples.apps.sunflower.ui.SunflowerTheme
+import com.google.samples.apps.sunflower.ui.ViewEvent
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
+import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel.PlantingState.PLANTED
+import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel.PlantingState.REMOVED
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -92,33 +98,52 @@ fun PlantDetailsScreen(
 ) {
     val plant = plantDetailsViewModel.plant.observeAsState().value
     val isPlanted = plantDetailsViewModel.isPlanted.collectAsStateWithLifecycle().value
-    val showSnackbar = plantDetailsViewModel.showSnackbar.observeAsState().value
+    plantDetailsViewModel.showSnackbar.observeAsState().value
     val eventUI = plantDetailsViewModel.eventUI.observeAsState().value
 
-    if (plant != null && showSnackbar != null) {
+    if (plant != null) {
         Surface {
-            TextSnackbarContainer(
-                snackbarText = stringResource(R.string.added_plant_to_garden),
-                showSnackbar = showSnackbar,
-                onDismissSnackbar = { plantDetailsViewModel.dismissSnackbar() }
-            ) {
-                PlantDetails(
-                    plant,
-                    isPlanted,
-                    PlantDetailsCallbacks(
-                        onBackClick = onBackClick,
-                        onAddFabClick = {
-                            plantDetailsViewModel.addPlantToGarden()
-                        },
-                        onRemoveFabClick = {
-                            plantDetailsViewModel.removePlantFromGarden()
-                        },
-                        onShareClick = onShareClick,
-                        onGalleryClick = onGalleryClick,
-                    )
+            PlantDetails(
+                plant,
+                isPlanted,
+                PlantDetailsCallbacks(
+                    onBackClick = onBackClick,
+                    onAddFabClick = {
+                        plantDetailsViewModel.addPlantToGarden()
+                    },
+                    onRemoveFabClick = {
+                        plantDetailsViewModel.removePlantFromGarden()
+                    },
+                    onShareClick = onShareClick,
+                    onGalleryClick = onGalleryClick,
                 )
-            }
+            )
         }
+    }
+
+    when (eventUI) {
+        is ViewEvent.Success -> {
+            if (eventUI.data == PLANTED)
+                TextSnackbarContainer(
+                    snackbarText = stringResource(R.string.added_plant_to_garden),
+                    showSnackbar = true,
+                    onDismissSnackbar = { plantDetailsViewModel.dismissSnackbar() }
+                )
+            else
+                TextSnackbarContainer(
+                    snackbarText = stringResource(R.string.removed_plant_from_garden),
+                    showSnackbar = true,
+                    onDismissSnackbar = { plantDetailsViewModel.dismissSnackbar() }
+                )
+        }
+        is ViewEvent.Error -> {
+            TextSnackbarContainer(
+                snackbarText = stringResource(R.string.failed_to_add_plant),
+                showSnackbar = true,
+                onDismissSnackbar = { plantDetailsViewModel.dismissSnackbar() }
+            )
+        }
+        else -> {}
     }
 }
 

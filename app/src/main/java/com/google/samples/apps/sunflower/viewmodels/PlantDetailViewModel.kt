@@ -57,7 +57,7 @@ class PlantDetailViewModel (
             val result = gardenPlantingUseCase.createGardenPlanting(plantId)
             result
                 .onSuccess {
-                    eventUI.postValue(ViewEvent.Success(Unit))
+                    eventUI.postValue(ViewEvent.Success(PlantingState.PLANTED))
                 }
                 .onFailure {
                     eventUI.postValue(ViewEvent.Error(it))
@@ -67,8 +67,14 @@ class PlantDetailViewModel (
 
     fun removePlantFromGarden() {
         launchOnIO {
-            gardenPlantingUseCase.removeGardenPlanting(plantId)
-            _showSnackbar.value = true
+            val result = gardenPlantingUseCase.removeGardenPlanting(plantId)
+            result
+                .onSuccess {
+                    eventUI.postValue(ViewEvent.Success(PlantingState.REMOVED))
+                }
+                .onFailure {
+                    eventUI.postValue(ViewEvent.Error(it))
+                }
         }
     }
 
@@ -78,5 +84,10 @@ class PlantDetailViewModel (
 
     companion object {
         private const val PLANT_ID_SAVED_STATE_KEY = "plantId"
+    }
+
+    enum class PlantingState {
+        PLANTED,
+        REMOVED
     }
 }
