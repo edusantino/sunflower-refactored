@@ -17,10 +17,14 @@
 package com.google.samples.apps.sunflower.di
 
 import com.santino.api.UnsplashService
-import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCase
-import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCaseImpl
+import com.google.samples.apps.sunflower.usecase.AddToGardenUseCase
+import com.google.samples.apps.sunflower.usecase.AddToGardenUseCaseImpl
+import com.google.samples.apps.sunflower.usecase.GetPlantedGardensUseCase
+import com.google.samples.apps.sunflower.usecase.GetPlantedGardensUseCaseImpl
 import com.google.samples.apps.sunflower.usecase.PlantUseCase
 import com.google.samples.apps.sunflower.usecase.PlantUseCaseImpl
+import com.google.samples.apps.sunflower.usecase.RemoveFromGardenUseCase
+import com.google.samples.apps.sunflower.usecase.RemoveFromGardenUseCaseImpl
 import com.google.samples.apps.sunflower.usecase.SearchResultUseCase
 import com.google.samples.apps.sunflower.usecase.SearchResultUseCaseImpl
 import com.google.samples.apps.sunflower.viewmodels.GardenPlantingListViewModel
@@ -36,13 +40,16 @@ object ModuleApp : KoinComponent {
         viewModel { PlantListViewModel(plantRepository = get(), savedStateHandle = get()) }
         viewModel {
             PlantDetailViewModel(
-                gardenPlantingUseCase = get(),
+                addToGardenUseCase = get(),
+                removeFromGardenUseCase = get(),
                 plantUseCase = get(),
                 savedStateHandle = get()
             )
         }
 
-        factory<GardenPlantingUseCase> { GardenPlantingUseCaseImpl(plantingRepository = get()) }
+        factory<GetPlantedGardensUseCase> { GetPlantedGardensUseCaseImpl(repository = get()) }
+        factory<RemoveFromGardenUseCase> { RemoveFromGardenUseCaseImpl(plantingRepository = get()) }
+        factory<AddToGardenUseCase> { AddToGardenUseCaseImpl(plantingRepository = get()) }
         factory<PlantUseCase> { PlantUseCaseImpl(plantRepository = get()) }
         factory<SearchResultUseCase> { SearchResultUseCaseImpl(repository = get()) }
         single { UnsplashService.create() }

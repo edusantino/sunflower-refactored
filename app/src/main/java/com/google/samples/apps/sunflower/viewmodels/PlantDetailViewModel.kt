@@ -23,8 +23,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.samples.apps.sunflower.BaseViewModel
 import com.google.samples.apps.sunflower.ui.ViewEvent
-import com.google.samples.apps.sunflower.usecase.GardenPlantingUseCase
+import com.google.samples.apps.sunflower.usecase.AddToGardenUseCase
 import com.google.samples.apps.sunflower.usecase.PlantUseCase
+import com.google.samples.apps.sunflower.usecase.RemoveFromGardenUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 
@@ -32,7 +33,8 @@ import kotlinx.coroutines.flow.stateIn
  * The ViewModel used in [PlantDetailsScreen].
  */
 class PlantDetailViewModel (
-    private val gardenPlantingUseCase: GardenPlantingUseCase,
+    private val addToGardenUseCase: AddToGardenUseCase,
+    private val removeFromGardenUseCase: RemoveFromGardenUseCase,
     savedStateHandle: SavedStateHandle,
     plantUseCase: PlantUseCase,
 ) : BaseViewModel() {
@@ -40,7 +42,7 @@ class PlantDetailViewModel (
 
     val plantId: String = savedStateHandle.get<String>(PLANT_ID_SAVED_STATE_KEY)!!
 
-    val isPlanted = gardenPlantingUseCase.isPlanted(plantId)
+    val isPlanted = addToGardenUseCase.isPlanted(plantId)
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
@@ -54,7 +56,7 @@ class PlantDetailViewModel (
 
     fun addPlantToGarden() {
         launchOnIO {
-            val result = gardenPlantingUseCase.createGardenPlanting(plantId)
+            val result = addToGardenUseCase.execute(plantId)
             result
                 .onSuccess {
                     eventUI.postValue(ViewEvent.Success(PlantingState.PLANTED))
@@ -67,7 +69,7 @@ class PlantDetailViewModel (
 
     fun removePlantFromGarden() {
         launchOnIO {
-            val result = gardenPlantingUseCase.removeGardenPlanting(plantId)
+            val result = removeFromGardenUseCase.execute(plantId)
             result
                 .onSuccess {
                     eventUI.postValue(ViewEvent.Success(PlantingState.REMOVED))

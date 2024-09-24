@@ -16,13 +16,8 @@
 
 package com.google.samples.apps.sunflower.usecase
 
-import com.google.samples.apps.sunflower.data.GardenPlanting
-import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
-import kotlinx.coroutines.flow.Flow
+import com.santino.db.repository.GardenPlantingRepository
 
-interface GardenPlantingUseCase {
-    suspend fun createGardenPlanting(plantId: String): Result<Unit>
-     suspend fun removeGardenPlanting(plantId: String): Result<Unit>
-     fun isPlanted(plantId: String): Flow<Boolean>
-     fun getPlantedGardens(): Flow<List<PlantAndGardenPlantings>>
+class GetPlantedGardensUseCaseImpl(private val repository: GardenPlantingRepository) : GetPlantedGardensUseCase {
+    override fun execute() = repository.getPlantedGardens()
 }
