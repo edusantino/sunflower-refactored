@@ -23,7 +23,8 @@ import com.google.samples.apps.sunflower.utilities.testCalendar
 import com.google.samples.apps.sunflower.utilities.testGardenPlanting
 import com.google.samples.apps.sunflower.utilities.testPlant
 import com.google.samples.apps.sunflower.utilities.testPlants
-import com.santino.db.data.GardenPlantingDao
+import com.santino.db.data.dao.GardenPlantingDao
+import com.santino.db.data.entities.GardenPlanting
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo

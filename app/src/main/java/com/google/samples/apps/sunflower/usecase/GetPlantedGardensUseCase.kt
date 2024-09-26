@@ -16,7 +16,7 @@
 
 package com.google.samples.apps.sunflower.usecase
 
-import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
+import com.santino.db.data.entities.PlantAndGardenPlantings
 import kotlinx.coroutines.flow.Flow
 
 interface GetPlantedGardensUseCase {

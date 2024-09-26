@@ -21,9 +21,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.samples.apps.sunflower.data.Plant
+import com.santino.db.data.entities.Plant
 import com.santino.db.repository.PlantRepository
-import com.santino.db.repository.PlantRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch

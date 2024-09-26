@@ -49,9 +49,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.google.samples.apps.sunflower.R
-import com.google.samples.apps.sunflower.data.GardenPlanting
-import com.google.samples.apps.sunflower.data.Plant
-import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
+import com.santino.db.data.entities.GardenPlanting
+import com.santino.db.data.entities.Plant
+import com.santino.db.data.entities.PlantAndGardenPlantings
 import com.google.samples.apps.sunflower.ui.SunflowerTheme
 import com.google.samples.apps.sunflower.viewmodels.GardenPlantingListViewModel
 import com.google.samples.apps.sunflower.viewmodels.PlantAndGardenPlantingsViewModel

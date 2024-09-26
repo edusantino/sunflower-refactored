@@ -17,6 +17,7 @@
 package com.google.samples.apps.sunflower.data
 
 import com.google.samples.apps.sunflower.test.CalendarMatcher.Companion.equalTo
+import com.santino.db.data.entities.GardenPlanting
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test

@@ -18,7 +18,7 @@ package com.google.samples.apps.sunflower.usecase
 
 import androidx.paging.PagingData
 import com.santino.api.data.UnsplashPhoto
-import com.santino.api.UnsplashRepository
+import com.santino.api.repository.UnsplashRepository
 import kotlinx.coroutines.flow.Flow
 
 class SearchResultUseCaseImpl(private val repository: UnsplashRepository) : SearchResultUseCase {

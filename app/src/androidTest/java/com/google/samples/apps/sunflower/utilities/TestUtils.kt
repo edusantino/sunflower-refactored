@@ -19,9 +19,9 @@ package com.google.samples.apps.sunflower.utilities
 import android.content.Intent
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
-import com.google.samples.apps.sunflower.data.GardenPlanting
-import com.google.samples.apps.sunflower.data.Plant
-import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
+import com.santino.db.data.entities.GardenPlanting
+import com.santino.db.data.entities.Plant
+import com.santino.db.data.entities.PlantAndGardenPlantings
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf

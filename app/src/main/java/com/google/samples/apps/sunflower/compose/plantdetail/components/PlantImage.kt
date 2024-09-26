@@ -41,6 +41,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.google.samples.apps.sunflower.compose.Dimens
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -65,6 +66,9 @@ fun PlantImage(
                     .background(placeholderColor)
             )
         }
+        val screenWidth = Dimens.screenWidth
+        val screenHeight = Dimens.screenHeight
+
         GlideImage(
             model = imageUrl,
             contentDescription = null,
@@ -72,9 +76,13 @@ fun PlantImage(
             contentScale = ContentScale.Crop,
             requestBuilderTransform = { requestBuilder ->
                 requestBuilder
-                    .apply(
-                        RequestOptions().format(DecodeFormat.PREFER_RGB_565).diskCacheStrategy(
-                            DiskCacheStrategy.ALL))
+                    .apply(RequestOptions()
+                            .format(DecodeFormat.PREFER_RGB_565)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .encodeQuality(50)
+                            .override(screenWidth.toInt(), screenHeight.toInt())
+                            .dontAnimate()
+                    )
                     .addListener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,

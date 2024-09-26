@@ -16,7 +16,7 @@
 
 package com.google.samples.apps.sunflower.usecase
 
-import com.google.samples.apps.sunflower.data.Plant
+import com.santino.db.data.entities.Plant
 import kotlinx.coroutines.flow.Flow
 
 interface PlantUseCase {

@@ -67,7 +67,7 @@ android {
     dataBinding = true
     buildConfig = true
   }
-  packagingOptions {
+  packaging {
     // Multiple dependency bring these files in. Exclude them to enable
     // our test APK to build (has no effect on our AARs)
     resources.excludes += "/META-INF/AL2.0"
@@ -97,8 +97,10 @@ androidComponents {
 }
 
 dependencies {
-  implementation(project(":data-source:local:db"))
-  implementation(project(":data-source:remote:api"))
+  // Project modules
+  implementation(project(":data-source-local:db"))
+  implementation(project(":data-source-remote:api"))
+
   ksp(libs.androidx.room.compiler)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -109,6 +111,7 @@ dependencies {
   implementation(libs.androidx.work.runtime.ktx)
   implementation(libs.material)
   implementation(libs.gson)
+  implementation(libs.guava)
 
   // Compose
   implementation(platform(libs.androidx.compose.bom))

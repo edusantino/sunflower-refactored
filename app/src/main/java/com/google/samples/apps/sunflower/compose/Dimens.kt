@@ -16,7 +16,10 @@
 
 package com.google.samples.apps.sunflower.compose
 
+import androidx.annotation.Px
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -45,4 +48,21 @@ object Dimens {
     val ToolbarIconPadding = 12.dp
 
     val ToolbarIconSize = 32.dp
+
+    val screenWidth: Float
+        @Composable get() = LocalDensity.current.run {
+            getScreenWidthInPx()
+        }
+
+    val screenHeight: Float
+        @Composable get() = screenWidth * (2f / 3f)
+
+    @Composable
+    fun getScreenWidthInPx(): Float {
+        val configuration = LocalConfiguration.current
+        val density = LocalDensity.current
+        val screenWidthDp = configuration.screenWidthDp.dp
+
+        return with(density) { screenWidthDp.toPx() }
+    }
 }

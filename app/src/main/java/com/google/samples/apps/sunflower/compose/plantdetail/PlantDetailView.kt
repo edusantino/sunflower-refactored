@@ -20,6 +20,7 @@ import android.text.method.LinkMovementMethod
 import androidx.annotation.VisibleForTesting
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
@@ -35,7 +36,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -45,7 +45,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
@@ -67,14 +66,12 @@ import com.google.samples.apps.sunflower.compose.plantdetail.components.fab.Plan
 import com.google.samples.apps.sunflower.compose.plantdetail.components.toolbar.PlantToolbar
 import com.google.samples.apps.sunflower.compose.utils.TextSnackbarContainer
 import com.google.samples.apps.sunflower.compose.visible
-import com.google.samples.apps.sunflower.data.GardenPlanting
-import com.google.samples.apps.sunflower.data.Plant
+import com.santino.db.data.entities.Plant
 import com.google.samples.apps.sunflower.databinding.ItemPlantDescriptionBinding
 import com.google.samples.apps.sunflower.ui.SunflowerTheme
 import com.google.samples.apps.sunflower.ui.ViewEvent
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel.PlantingState.PLANTED
-import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel.PlantingState.REMOVED
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -165,7 +162,7 @@ fun PlantDetails(
     val toolbarState = plantScroller.getToolbarState(LocalDensity.current)
 
     // Transition that fades in/out the header with the image and the Toolbar
-    val transition = updateTransition(transitionState, label = "")
+    val transition = rememberTransition(transitionState, label = "")
     val toolbarAlpha = transition.animateFloat(
         transitionSpec = { spring(stiffness = Spring.StiffnessLow) }, label = ""
     ) { toolbarTransitionState ->

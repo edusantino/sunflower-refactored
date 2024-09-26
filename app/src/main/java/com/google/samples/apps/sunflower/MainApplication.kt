@@ -19,17 +19,18 @@ package com.google.samples.apps.sunflower
 import android.app.Application
 import androidx.work.Configuration
 import com.google.samples.apps.sunflower.di.ModuleApp
-import com.santino.api.di.ModuleAPI
-import com.santino.db.ModuleDB
+import com.santino.db.di.ModuleDB
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
+import android.util.Log
+import com.santino.api.di.ModuleAPI
 
 class MainApplication : Application(), Configuration.Provider {
 
   override val workManagerConfiguration: Configuration
     get() = Configuration.Builder()
-      .setMinimumLoggingLevel(if (BuildConfig.DEBUG) android.util.Log.DEBUG else android.util.Log.ERROR)
+      .setMinimumLoggingLevel(if (BuildConfig.DEBUG) Log.DEBUG else Log.ERROR)
       .build()
 
   override fun onCreate() {

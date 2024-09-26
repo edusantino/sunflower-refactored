@@ -38,7 +38,8 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.samples.apps.sunflower.R
-import com.google.samples.apps.sunflower.data.Plant
+import com.google.samples.apps.sunflower.compose.Dimens
+import com.santino.db.data.entities.Plant
 import com.santino.api.data.UnsplashPhoto
 
 @Composable
@@ -61,6 +62,8 @@ fun ImageListItem(name: String, imageUrl: String, onClick: () -> Unit) {
             .padding(horizontal = dimensionResource(id = R.dimen.card_side_margin))
             .padding(bottom = dimensionResource(id = R.dimen.card_bottom_margin))
     ) {
+        val screenWidth = Dimens.screenWidth
+        val screenHeight = Dimens.screenHeight
         Column(Modifier.fillMaxWidth()) {
             GlideImage(
                 model = imageUrl,
@@ -72,7 +75,8 @@ fun ImageListItem(name: String, imageUrl: String, onClick: () -> Unit) {
                 requestBuilderTransform = {
                     it.apply(RequestOptions()
                         .format(DecodeFormat.PREFER_RGB_565)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
+                        .override(screenWidth.toInt(), screenHeight.toInt())
                         .encodeQuality(50)
                 }
             )
